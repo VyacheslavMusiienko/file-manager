@@ -44,7 +44,8 @@ export const inputValue = async (value) => {
         console.log('rm');
         break;
       case 'os':
-        console.log('os');
+        const { osFunc } = await import('./os.js');
+        await osFunc(args[0]);
         break;
       case 'hash':
         console.log('hash');
