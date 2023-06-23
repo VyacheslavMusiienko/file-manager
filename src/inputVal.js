@@ -1,21 +1,28 @@
-const inputValue = async (value) => {
+import { homedir } from 'os';
+
+export const inputValue = async (value) => {
   try {
     const valueFilter = value.toString().trim().split(" ");
     const [command , ...args] = valueFilter;
+    let currentPath = process.cwd();
 
     switch (command) {
       case '.exit':
         process.exit(0);
-      case 'up':
-        console.log('up');
-        break;
-      case 'cd':
-        console.log('cd');
-        break;
 
       case 'ls':
         const { ls } = await import('./ls.js');
         await ls();
+        break;
+
+      case 'up':
+        const { cd: upperPath } = await import('./cd.js');
+        currentPath = await upperPath(currentPath, '..');
+        break;
+
+      case 'cd':
+        const { cd: changeDirectory } = await import('./cd.js');
+        currentPath = await changeDirectory(currentPath, args[0]);
         break;
 
       case 'cat':
@@ -51,9 +58,9 @@ const inputValue = async (value) => {
       default:
         throw new Error('Invalid value');
     }
+
+    console.log(`You are currently in ${currentPath}`);
   } catch (error) {
     console.error(error.message);
   }
 }
-
-export { inputValue };
