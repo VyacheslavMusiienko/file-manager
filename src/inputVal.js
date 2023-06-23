@@ -12,9 +12,12 @@ const inputValue = async (value) => {
       case 'cd':
         console.log('cd');
         break;
+
       case 'ls':
-        console.log('ls');
+        const { ls } = await import('./ls.js');
+        await ls();
         break;
+
       case 'cat':
         console.log('cat');
         break;
