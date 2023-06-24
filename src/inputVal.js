@@ -30,7 +30,8 @@ export const inputValue = async (value) => {
         break;
 
       case 'add':
-        console.log('add');
+        const {add} = await import('./add.js');
+        await add(args[0]);
         break;
       case 'rn':
         console.log('rn');

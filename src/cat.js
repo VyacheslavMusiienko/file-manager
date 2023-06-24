@@ -4,7 +4,7 @@ import { resolve } from 'path';
 export const cat = async (filePath) => {
   try {
     if(!filePath){
-      throw new Error('Invalid error path in cat')
+      throw new Error('Invalid input path in cat')
     }
 
     let stream = createReadStream(resolve(filePath));
