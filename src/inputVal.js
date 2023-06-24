@@ -30,12 +30,15 @@ export const inputValue = async (value) => {
         break;
 
       case 'add':
-        const {add} = await import('./add.js');
+        const { add } = await import('./add.js');
         await add(args[0]);
         break;
+
       case 'rn':
-        console.log('rn');
+        const { rn } = await import('./rn.js');
+        await rn(currentPath, args[0], args[1]);
         break;
+
       case 'cp':
         console.log('cp');
         break;
