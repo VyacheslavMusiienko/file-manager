@@ -1,4 +1,3 @@
-import { homedir } from 'os';
 
 export const inputValue = async (value) => {
   try {
@@ -26,8 +25,10 @@ export const inputValue = async (value) => {
         break;
 
       case 'cat':
-        console.log('cat');
+        const { cat } = await import ('./cat.js');
+        await cat(args[0]);
         break;
+
       case 'add':
         console.log('add');
         break;
@@ -43,10 +44,12 @@ export const inputValue = async (value) => {
       case 'rm':
         console.log('rm');
         break;
+
       case 'os':
         const { osFunc } = await import('./os.js');
         await osFunc(args[0]);
         break;
+
       case 'hash':
         console.log('hash');
         break;
