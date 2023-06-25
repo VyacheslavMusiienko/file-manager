@@ -22,6 +22,7 @@ export const decompress = async (currentPath, pathToFile, pathToNewFile) => {
     const brotli = createBrotliDecompress();
     const rs = createReadStream (resolve(pathToFile));
     const ws = createWriteStream (resolve(pathToNewFile, parsePath.base));
+    
 
     rs.pipe(brotli).pipe(ws);
   } catch (error) {
