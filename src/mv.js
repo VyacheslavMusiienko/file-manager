@@ -1,5 +1,8 @@
 export const mv = async (currentPath, pathToFile, pathToNewFile) => {
   try {
+    if (!pathToFile || !pathToNewFile) {
+      throw new Error("Invalid input");
+    }
     const { cp } = await import('./cp.js');
 
     if(await cp(currentPath, pathToFile, pathToNewFile)){
