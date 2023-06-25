@@ -40,8 +40,10 @@ export const inputValue = async (value) => {
         break;
 
       case 'cp':
-        console.log('cp');
+        const { cp } = await import('./cp.js');
+        await cp(currentPath, args[0], args[1]);
         break;
+
       case 'mv':
         console.log('mv');
         break;
