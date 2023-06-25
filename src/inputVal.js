@@ -70,7 +70,8 @@ export const inputValue = async (value) => {
         break;
 
       case 'decompress':
-        console.log('decompress');
+        const { decompress } = await import('./decompress.js');
+        await decompress(currentPath, args[0], args[1]);
         break;
 
       default:
