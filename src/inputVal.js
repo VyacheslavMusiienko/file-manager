@@ -48,7 +48,8 @@ export const inputValue = async (value) => {
         console.log('mv');
         break;
       case 'rm':
-        console.log('rm');
+        const { rm } = await import('./rm.js');
+        await rm(currentPath, args[0]);
         break;
 
       case 'os':
