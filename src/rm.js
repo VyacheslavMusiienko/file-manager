@@ -1,5 +1,5 @@
 import {join} from 'path';
-import {unlink} from 'fs';
+import { unlink } from 'fs';
 
 export const rm = async (currentPath, pathRemove) => {
   try {
@@ -12,11 +12,9 @@ export const rm = async (currentPath, pathRemove) => {
     } else {
       path = join(currentPath, pathRemove);
     }
-    await unlink(path, (error) => {
+    unlink(path, (error) => {
       if (error) {
         console.log('Failed to delete file:', error);
-      } else {
-        console.log('File has been successfully deleted');
       }
     });
   } catch (error) {

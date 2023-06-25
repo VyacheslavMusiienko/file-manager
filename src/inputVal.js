@@ -45,8 +45,10 @@ export const inputValue = async (value) => {
         break;
 
       case 'mv':
-        console.log('mv');
+        const { mv } = await import('./mv.js');
+        await mv(currentPath, args[0], args[1]);
         break;
+
       case 'rm':
         const { rm } = await import('./rm.js');
         await rm(currentPath, args[0]);

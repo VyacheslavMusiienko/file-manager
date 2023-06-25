@@ -1,5 +1,7 @@
-import { access, readFile, readdir, writeFile } from 'fs/promises';
+import { createReadStream, createWriteStream } from 'fs';
+import { access, readdir } from 'fs/promises';
 import { join, parse } from 'path';
+import { pipeline } from 'stream';
 
 export const cp = async (currentPath, pathToFile, newFileName) => {
   try {
@@ -23,20 +25,35 @@ export const cp = async (currentPath, pathToFile, newFileName) => {
 
     const { base: sourceBase } = parse(sourceFile);
 
+    const targetFilePath = join(targetDir, sourceBase);
+
     const targetDirListing = await readdir(targetDir);
     if (targetDirListing.includes(sourceBase)) {
       throw new Error("Operation failed. File already exists");
     }
 
-    const fileData = await readFile(sourceFile);
-    await writeFile(join(targetDir, sourceBase), fileData);
+    const sourceStream = createReadStream(sourceFile);
+    const targetStream = createWriteStream(targetFilePath);
 
-    console.log('File cope');
+    await new Promise((resolve, reject) => {
+      pipeline(sourceStream, targetStream, (error) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    });
+
+    console.log('File copied');
+    return true;
   } catch (error) {
     if (error.message.includes("ENOENT")) {
-      console.log("Operation failed ;", error.message);
+      console.log("Operation failed:", error.message);
+      return false;
     } else {
       console.log(error.message);
+      return false;
     }
   }
 };
