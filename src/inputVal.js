@@ -63,12 +63,16 @@ export const inputValue = async (value) => {
         const { hash } = await import('./hash.js');
         await hash(args[0]);
         break;
+
       case 'compress':
-        console.log('compress');
+        const { compress } = await import('./compress.js');
+        await compress(currentPath, args[0], args[1]);
         break;
+
       case 'decompress':
         console.log('decompress');
         break;
+
       default:
         throw new Error('Invalid value');
     }
